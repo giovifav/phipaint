@@ -1,11 +1,9 @@
 local Level = Class:extend()
-
-local level
-
+------------------------------------------------------------------------------------------------------
 function Level:new(imgFileName)
   self:init(imgFileName)
 end
-
+------------------------------------------------------------------------------------------------------
 function Level:init(imgFileName)
   imgFileName = self.filename or imgFileName
   self.filename = imgFileName
@@ -14,9 +12,7 @@ function Level:init(imgFileName)
   self.world = love.physics.newWorld(0, 9.81 * C.pixelRatio, true)
   self.world:setCallbacks(self.beginContact, self.endContact, self.preSolve, self.postSolve)
   self.levelTable = {}
-
   self.objects = {}
-
   for x = 0, self.width do
     self.levelTable[x] = {}
     for y = 0, self.height do
@@ -24,34 +20,27 @@ function Level:init(imgFileName)
       self.levelTable[x][y] = { r, g, b }
     end
   end
-
   level = self
   self:addObjects()
-
-
 end
-
 --------------------------------------------------------------------------------------------------
 function Level.beginContact(a, b, coll)
 
-
 end
-
+------------------------------------------------------------------------------------------------------
 function Level.endContact(a, b, coll)
 
 end
-
+------------------------------------------------------------------------------------------------------
 function Level.preSolve(a, b, coll)
 
 end
-
+------------------------------------------------------------------------------------------------------
 function Level.postSolve(a, b, coll)
   local ad, bd = a:getUserData(), b:getUserData()
-  --[[
-  --- player contro barriere e goal
+  --[[ player contro barriere e goal
   if ad.type == "player" and bd.type == "barrier" then
     bd.remove = true
-
   elseif bd.type == "player" and ad.type == "barrier" then
     ad.remove = true
     --player contro enemy
@@ -66,11 +55,9 @@ function Level.postSolve(a, b, coll)
   elseif bd.type == "player" and ad.type == "enemy" then
     ad.remove = true
     --  level:init()
-  end
-  ]]
+  end]]
 end
-
-------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
 function Level:addObjects()
   local map = self.levelTable
   for x, v in ipairs(map) do
@@ -98,19 +85,15 @@ function Level:addObjects()
     end
   end
 end
-
-------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------
 function Level:draw()
   for k, v in ipairs(self.objects) do
     v:draw()
   end
 end
-
--------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
 function Level:update(dt)
   self.world:update(dt)
-
   for k, v in ipairs(self.objects) do
     if v.remove == true then
       v.body:destroy()
@@ -119,7 +102,6 @@ function Level:update(dt)
       v:update(dt)
     end
   end
-
 end
-
+------------------------------------------------------------------------------------------------------
 return Level

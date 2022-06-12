@@ -11,30 +11,25 @@ function Object:new()
   self.fixedRotation = false
   self.friction = 0
   self.restitution = 1
-  self.density = 2000
-  
+  self.density = 50
 end
 ------------------------------------------------------------------------------------------------------
 function Object:addPixel(x,y)
   table.insert(self.table,{x , y })
-end  
+end
 ------------------------------------------------------------------------------------------------------
 function Object:consolidate(world)
-  
   local minX, minY, maxX, maxY = nil, nil, nil, nil
   for k, v in ipairs(self.table) do
     if minX == nil then minX = v[1] end
     if maxX == nil then maxX = v[1] end
     if minY == nil then minY = v[2] end
     if maxY == nil then maxY = v[2] end
-    
     if v[1] <= minX then minX = v[1] end
     if v[1] >= maxX then maxX = v[1] end
     if v[2] <= minY then minY = v[2] end
     if v[2] >= maxY then maxY = v[2] end
-     
   end
-  
   self.width = maxX - minX +1
   self.height = maxY - minY +1 
   self.minX, self.minY = minX, minY
@@ -64,25 +59,19 @@ function Object:draw()
   for k,v in ipairs(self.shapes) do
     love.graphics.polygon(C.drawMode, self.body:getWorldPoints(v:getPoints()))
   end
-  
 end
 ------------------------------------------------------------------------------------------------------
 function Object:update(dt)
 end
-
 ------------------------------------------------------------------------------------------------------
 function Object:flood8(x, y, map)
   local width = table.count(map)
   local height = table.count(map[1])
-  
   if x < width and x >= 0 and y < height and y >= 0 then
     if type(map[x][y]) == "table" then
         if map[x][y][1] == self.r and map[x][y][2] == self.g and map[x][y][3] == self.b   then
-          
           self:addPixel(x, y)
-          
           map[x][y] = {0,0,0}
-          
           self:flood8(x+1,y,map)
           self:flood8(x-1,y,map)
           self:flood8(x,y+1,map)
@@ -91,24 +80,17 @@ function Object:flood8(x, y, map)
           self:flood8(x+1,y-1,map)
           self:flood8(x-1,y+1,map)
           self:flood8(x-1,y-1,map)
-          
         end
     end
-    
   end
-  
-    
 end
-
-
- 
+------------------------------------------------------------------------------------------------------
 function Object:isPixel(x,y)
   for k, v in pairs(self.table) do
     if v [1] == x and v[2] == y then
-      
       return true
     end
   end
 end
-
+------------------------------------------------------------------------------------------------------
 return Object

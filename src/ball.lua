@@ -1,5 +1,5 @@
 local ball = CircleObject:extend()
-
+------------------------------------------------------------------------------------------------------
 function ball:new()
   ball.super.new(self)
   self.type = "ball"
@@ -8,5 +8,5 @@ function ball:new()
   self.b = C.colors.ball[3]
   self.physicType = "dynamic"
 end
-
+------------------------------------------------------------------------------------------------------
 return ball
