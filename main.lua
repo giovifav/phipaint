@@ -1,6 +1,6 @@
 C = {
   pixelRatio = 50,
-  drawMode = "line",
+  drawMode = "fill",
   colors = {
     ball = { 0, 1, 1 },
     staticObject = { 1, 1, 1 },
@@ -25,7 +25,7 @@ local level
 function love.load()
   love.graphics.setDefaultFilter("nearest","nearest")
   love.physics.setMeter(C.pixelRatio)
-  level = Level("test.png")
+  level = Level("test1.png")
   Center:setupScreen(64 * C.pixelRatio, 64 * C.pixelRatio)
   love.graphics.setBackgroundColor(0, 0, 0, 1)
 end

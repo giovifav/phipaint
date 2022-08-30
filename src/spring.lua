@@ -1,4 +1,5 @@
-local spring = Object:extend()
+
+local spring = CircleObject:extend()
 ------------------------------------------------------------------------------------------------------
 function spring:new()
   spring.super.new(self)

@@ -10,11 +10,12 @@ function Object:new()
   self.remove = false
   self.fixedRotation = false
   self.friction = 0
-  self.restitution = 1
+  self.restitution = 0.5
   self.density = 50
 end
 ------------------------------------------------------------------------------------------------------
 function Object:addPixel(x,y)
+  
   table.insert(self.table,{x , y })
 end
 ------------------------------------------------------------------------------------------------------

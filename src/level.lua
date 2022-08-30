@@ -16,11 +16,10 @@ function Level:init(imgFileName)
   for x = 0, self.width do
     self.levelTable[x] = {}
     for y = 0, self.height do
-      r, g, b, a            = source:getPixel(x, y)
+      local r, g, b, a  = source:getPixel(x, y)
       self.levelTable[x][y] = { r, g, b }
     end
   end
-  level = self
   self:addObjects()
 end
 --------------------------------------------------------------------------------------------------

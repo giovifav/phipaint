@@ -24,7 +24,8 @@ function circleObject:draw()
     love.graphics.setColor(self.r, self.g, self.b)
     for k, v in ipairs(self.shapes) do
         local x, y = self.body:getWorldPoints(v:getPoint())
-        love.graphics.circle(C.drawMode, x, y, C.pixelRatio)
+        
+        love.graphics.circle(C.drawMode, x, y, C.pixelRatio/2)
     end
 end
 ------------------------------------------------------------------------------------------------------
